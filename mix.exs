@@ -22,6 +22,8 @@ defmodule Oriza.MixProject do
         plt_core_path: "priv/plts",
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
       ],
+      description: description(),
+      package: package(),
       deps: deps(),
       # Docs
       name: "Oriza",
@@ -32,19 +34,33 @@ defmodule Oriza.MixProject do
 
   # Run "mix help compile.app" to learn about applications.
   def application do
-    [
-      extra_applications: [:logger]
-    ]
+    []
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:gettext, "~> 0.18.2"},
       {:credo, "~> 1.5.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.1", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false},
       {:excoveralls, "~> 0.14.0", only: :test}
+    ]
+  end
+
+  defp description do
+    """
+    A small utility to wrap a function in a context.
+
+    This is used to provide secure contexts for running functions.
+    """
+  end
+
+  defp package do
+    [
+      name: "oriza",
+      files: ~w(lib .formatter.exs mix.exs README* LICENSE CHANGELOG*),
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/rmparr/oriza"}
     ]
   end
 
