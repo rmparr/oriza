@@ -1,4 +1,4 @@
-# Oriza
+# Oriza [![Coverage Status](https://coveralls.io/repos/github/rmparr/oriza/badge.svg?branch=main)](https://coveralls.io/github/rmparr/oriza?branch=main)
 
 A way to add contexts to function calls. Given:
 
