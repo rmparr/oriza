@@ -8,7 +8,7 @@ defmodule Oriza.MixProject do
     [
       app: :oriza,
       version: @version,
-      elixir: "~> 1.11",
+      elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
