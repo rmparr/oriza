@@ -1,0 +1,64 @@
+defmodule Oriza.MixProject do
+  use Mix.Project
+
+  @source_url "https://github.com/rmparr/oriza"
+  @version "0.0.1"
+
+  def project do
+    [
+      app: :oriza,
+      version: @version,
+      elixir: "~> 1.11",
+      start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
+      dialyzer: [
+        plt_add_deps: :app_tree,
+        plt_core_path: "priv/plts",
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ],
+      deps: deps(),
+      # Docs
+      name: "Oriza",
+      source_url: @source_url,
+      docs: docs()
+    ]
+  end
+
+  # Run "mix help compile.app" to learn about applications.
+  def application do
+    [
+      extra_applications: [:logger]
+    ]
+  end
+
+  # Run "mix help deps" to learn about dependencies.
+  defp deps do
+    [
+      {:gettext, "~> 0.18.2"},
+      {:credo, "~> 1.5.5", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.1", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.14.0", only: :test}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      extras: [
+        "README.md",
+        "CHANGELOG.md",
+        "LICENSE"
+      ],
+      source_ref: "v#{@version}",
+      source_url: @source_url,
+      skip_undefined_reference_warnings_on: ["CHANGELOG.md"]
+    ]
+  end
+end
