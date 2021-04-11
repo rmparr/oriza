@@ -39,7 +39,7 @@ defmodule Oriza.Context do
       Calling this with a user context in the first position will either call the underlying
       function or return an error tuple.
       """
-      def unquote(name)(user_context, unquote_splicing(args)) do
+      def unquote(name)(%Oriza.Context{} = user_context, unquote_splicing(args)) do
         if check_context(user_context, unquote(context)) do
           unquote(name)(unquote_splicing(args))
         else

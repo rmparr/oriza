@@ -36,17 +36,22 @@ defmodule Oriza.ContextTest do
     end
 
     test "calls the contexted function with an allowed user context" do
-      admin_read = [admin: [:read]]
-      admin_write = [admin: [:write]]
+      admin_read = Context.new(admin: [:read])
+      admin_write = Context.new(admin: [:write])
 
       assert S.test_function(admin_read, 1, 1) == 2
       assert S.test_function(admin_write, 1, 1) == 2
     end
 
     test "calls the contexted function with a disallowed user context" do
-      user_context = [user: [:read]]
+      user_context = Context.new(user: [:read])
 
       assert {:error, "no access"} = S.test_function(user_context, 1, 1)
+    end
+
+    test "raised an error when the contexted function is called without a context" do
+      assert_raise FunctionClauseError, fn -> S.test_function([admin: [:read]], 1, 1) end
+      assert_raise FunctionClauseError, fn -> S.test_function(nil, 1, 1) end
     end
   end
 end
