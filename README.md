@@ -6,7 +6,7 @@ A way to add contexts to function calls. Given:
 defmodule MyModule do
   use Oriza.Context
 
-  @context admin: [:read, :write]
+  context(:do_something, [:arg], [admin: [:read, :write]])
   def do_something(arg), do: arg
 end
 ```
@@ -14,8 +14,8 @@ end
 Creates the following additional function definition:
 
 ```elixir
-def do_something(context, arg) do
-  with :ok <- check_context(context) do
+def do_something(user_context, arg) do
+  with :ok <- check_context(user_context, %Oriza.Context{keys: [admin: [:read, :write]]}) do
     do_something(arg)
   else
     _ -> {:error, "access denied"}
@@ -24,17 +24,14 @@ end
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `oriza` to your list of dependencies in `mix.exs`:
+Oriza can be added as a project dependency:
 
 ```elixir
 def deps do
   [
-    {:oriza, "~> 0.0.1"}
+    {:oriza, "~> 0.0.3-alpha"}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/oriza](https://hexdocs.pm/oriza).
+After adding the dependency, modules can `use Oriza`, which will give access to the `context` macro.
