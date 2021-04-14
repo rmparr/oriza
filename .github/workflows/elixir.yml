@@ -35,9 +35,11 @@ jobs:
         run: |
           mix compile --warnings-as-errors
           mix format --check-formatted
-          mix coveralls.post --token ${{ secrets.COVERALLS_TOKEN }}
+          mix coveralls.github
         env:
           MIX_ENV: test
+          TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Retrieve PLT Cache
         uses: actions/cache@v1
