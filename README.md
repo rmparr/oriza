@@ -15,10 +15,10 @@ Creates the following additional function definition:
 
 ```elixir
 def do_something(user_context, arg) do
-  with :ok <- check_context(user_context, %Oriza.Context{keys: [admin: [:read, :write]]}) do
+  if check_context(user_context, %Oriza.Context{keys: [admin: [:read, :write]]}) do
     do_something(arg)
   else
-    _ -> {:error, "access denied"}
+    {:error, "access denied"}
 end
 ```
 
