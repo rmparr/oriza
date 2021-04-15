@@ -35,3 +35,11 @@ end
 ```
 
 After adding the dependency, modules can `use Oriza`, which will give access to the `context` macro.
+
+## Contributing
+
+### Git Hooks
+
+GitHub Actions is going to run all of this anyway, so why not check before?
+
+To remove any existing hooks and symlink the repo git hooks, run `mix run scripts/symlink_git_hooks.exs` from the command line.
